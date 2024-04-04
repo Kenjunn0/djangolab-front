@@ -1,7 +1,40 @@
-import {Grid} from "@chakra-ui/react";
+import {Box, Grid, Skeleton, SkeletonText} from "@chakra-ui/react";
 import Room from "../components/Room";
+import {useEffect, useState} from "react";
+
+
+interface IPhotos {
+    pk: number;
+    file: string;
+    description: string;
+}
+
+interface IRoom {
+    pk : number;
+    name : string;
+    country : string;
+    city : string;
+    price : number;
+    rating : number;
+    is_owner : boolean;
+    photos : IPhotos[];
+}
 
 export default function Home() {
+
+    const [isLoading, setIsLoading] = useState(true);
+    const [rooms, setRooms] = useState<IRoom[]>([]);
+    const fetchRomms = async () => {
+        const response = await fetch("http://localhost:8000/api/v1/rooms/");
+        const json = await response.json();
+        setRooms(json);
+        setIsLoading(false);
+    }
+
+    useEffect(() => {
+        fetchRomms();
+    }, [])
+
     return (
         <Grid my={10}
               mx={{
@@ -18,12 +51,25 @@ export default function Home() {
                   "2xl": "repeat(5, 1fr)"
               }}
         >
-            {[
-                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-            ].map((index: number) => (
-                <Room />
+            {isLoading ? (
+                <>
+                    <Box>
+                        <Skeleton height={"150px"} rounded={"2xl"} mb={3} />
+                        <SkeletonText w={"75%"} noOfLines={2} />
+                    </Box>
+                    <Box>
+                        <Skeleton height={"150px"} rounded={"2xl"} mb={3} />
+                        <SkeletonText w={"75%"} noOfLines={2} />
+                    </Box>
+                    <Box>
+                        <Skeleton height={"150px"} rounded={"2xl"} mb={3} />
+                        <SkeletonText w={"75%"} noOfLines={2} />
+                    </Box>
+                </>
+            ) : null }
+            {rooms.map((room) => (
+                <Room imageURL={room.photos[0].file} name={room.name} rating={room.rating} city={room.city} country={room.country} price={room.price} />
             ))}
-
         </Grid>
     )
 }
