@@ -1,10 +1,9 @@
-import {Link, Outlet} from "react-router-dom";
+import {Outlet} from "react-router-dom";
 import {
-    HStack,
     Box,
-    Button,
-    IconButton, useDisclosure
+    useDisclosure
 } from "@chakra-ui/react";
+import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import LoginModal from "./LoginModal";
 import Header from "./Header";
 import SignUpModal from "./SignUpModal";
@@ -21,6 +20,7 @@ export default function Root(){
             <LoginModal isOpen={isLoginOpen} onClose={onLoginClose} />
             <SignUpModal isOpen={isSignUpOpen} onClose={onSignUpClose} />
             <Outlet />
+            <ReactQueryDevtools />
         </Box>
     );
 }

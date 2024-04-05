@@ -7,7 +7,7 @@ import {IRoom} from "./Home";
 export default function RoomDetail() {
     const {roomPk} = useParams();
     const {isLoading, data} = useQuery<IRoom>({
-        queryKey: [`room:${roomPk}}`],
+        queryKey: [`rooms`, roomPk],
         queryFn: getRoom
     })
 
