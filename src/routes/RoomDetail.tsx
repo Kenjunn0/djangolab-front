@@ -2,8 +2,22 @@ import {useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
 import {getRoom, getRoomReviews} from "../api";
 import {IReviews, IRoomDetail} from "../types";
-import {Avatar, Box, Divider, Grid, GridItem, Heading, HStack, Image, Skeleton, Text, VStack} from "@chakra-ui/react";
+import {
+    Avatar,
+    Box,
+    Container,
+    Divider,
+    Grid,
+    GridItem,
+    Heading,
+    HStack,
+    Image,
+    Skeleton,
+    Text,
+    VStack
+} from "@chakra-ui/react";
 import {FaStar} from "react-icons/fa";
+import Header from "../components/Header";
 
 
 export default function RoomDetail() {
@@ -66,6 +80,25 @@ export default function RoomDetail() {
                         <Text>{reviewsData?.length} Review{reviewsData?.length === 1 ? "" : "s"}</Text>
                     </HStack>
                 </Heading>
+                <Container marginX={"none"} maxW={"container.lg"}>
+                <Grid mt={5} gap={5} templateColumns={"1fr 1fr"}>
+                    {reviewsData?.map((review, index) => (
+                        <VStack p={5} bg={"gray.100"} alignItems={"flex-start"} rounded={25} key={index}>
+                            <HStack>
+                                <Avatar name={review.user.name} src={review.user.avatar}/>
+                                <VStack alignItems={"fl"}>
+                                    <Heading fontSize={"md"}>{review.user.name}</Heading>
+                                    <HStack spacing={1}>
+                                        <FaStar size={"12px"} />
+                                        <Text>{review.rating}</Text>
+                                    </HStack>
+                                </VStack>
+                            </HStack>
+                            <Text w={"100%"} p={2} bg={"gray.200"} rounded={15}>{review.payload}</Text>
+                        </VStack>
+                    ))}
+                </Grid>
+                </Container>
             </Box>
         </Box>
     )

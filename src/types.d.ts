@@ -46,11 +46,7 @@ export interface IRoomDetail extends IRoomList {
 }
 
 interface IReviews {
-    user: {
-        pk : number;
-        name : string;
-        username : string;
-    };
+    user: IRoomOwner;
     payload : string;
     rating : number;
 }
