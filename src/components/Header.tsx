@@ -1,8 +1,19 @@
-import {Box, Button, HStack, IconButton, LightMode, Stack, useColorMode, useColorModeValue} from "@chakra-ui/react";
+import {
+    Avatar,
+    Box,
+    Button,
+    HStack,
+    IconButton,
+    LightMode,
+    Stack,
+    useColorMode,
+    useColorModeValue
+} from "@chakra-ui/react";
 import {Link} from "react-router-dom";
 import {FaAirbnb} from "react-icons/fa6";
 import {FaMoon} from "react-icons/fa";
 import { IoSunnySharp } from "react-icons/io5";
+import useUser from "../lib/useUser";
 
 
 interface HeaderProps {
@@ -11,6 +22,8 @@ interface HeaderProps {
 }
 
 export default function Header( { onLoginOpen, onSignUpOpen } : HeaderProps ) {
+
+    const {userLoading, user, isLoggedIn} = useUser();
 
     const { colorMode, toggleColorMode } = useColorMode()
     const logoColor = useColorModeValue("red.500", "red.200")
@@ -38,10 +51,18 @@ export default function Header( { onLoginOpen, onSignUpOpen } : HeaderProps ) {
                     icon={<Icon />}
                     variant={"ghost"}
                 />
-                <Button onClick={onLoginOpen}>Log in</Button>
-                <LightMode>
-                    <Button onClick={onSignUpOpen} colorScheme={"red"}>Sign up</Button>
-                </LightMode>
+                {!userLoading ? (
+                    !isLoggedIn ?
+                        <>
+                            <Button onClick={onLoginOpen}>Log in</Button>
+                            <LightMode>
+                                <Button onClick={onSignUpOpen} colorScheme={"red"}>Sign up</Button>
+                            </LightMode>
+                        </>
+                        :
+                        <Avatar name={user?.name} src={user?.avatar} size={"md"} />
+                ) : null
+                }
             </HStack>
         </Stack>
     )
