@@ -4,16 +4,17 @@ import {
     Button,
     HStack,
     IconButton,
-    LightMode,
+    LightMode, Menu, MenuButton, MenuItem, MenuList,
     Stack,
     useColorMode,
-    useColorModeValue
+    useColorModeValue, useToast
 } from "@chakra-ui/react";
 import {Link} from "react-router-dom";
 import {FaAirbnb} from "react-icons/fa6";
 import {FaMoon} from "react-icons/fa";
 import { IoSunnySharp } from "react-icons/io5";
 import useUser from "../lib/useUser";
+import {logOut} from "../api";
 
 
 interface HeaderProps {
@@ -24,10 +25,24 @@ interface HeaderProps {
 export default function Header( { onLoginOpen, onSignUpOpen } : HeaderProps ) {
 
     const {userLoading, user, isLoggedIn} = useUser();
+    const toast = useToast();
 
     const { colorMode, toggleColorMode } = useColorMode()
     const logoColor = useColorModeValue("red.500", "red.200")
     const Icon = useColorModeValue(FaMoon, IoSunnySharp)
+
+    const onLogOut = async () => {
+        const toastId = toast({
+            title: "Good bye",
+            description: "see you later",
+            status: "loading",
+            position: "bottom-right"
+        })
+        //const data = await logOut();
+        toast.update(toastId, {
+            status: "success"
+        })
+    }
 
     return (
         <Stack
@@ -60,7 +75,14 @@ export default function Header( { onLoginOpen, onSignUpOpen } : HeaderProps ) {
                             </LightMode>
                         </>
                         :
-                        <Avatar name={user?.name} src={user?.avatar} size={"md"} />
+                        <Menu>
+                            <MenuButton>
+                                <Avatar name={user?.name} src={user?.avatar} size={"md"} />
+                            </MenuButton>
+                            <MenuList>
+                                <MenuItem onClick={onLogOut}>Log Out</MenuItem>
+                            </MenuList>
+                        </Menu>
                 ) : null
                 }
             </HStack>

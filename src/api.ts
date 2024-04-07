@@ -25,3 +25,8 @@ export const getMe = async () => {
     return instance.get(`users/me`).
     then((response) => response.data)
 }
+
+export const logOut = async () => {
+    return instance.get(`users/log-out`).
+    then((response) => response.data)
+}
