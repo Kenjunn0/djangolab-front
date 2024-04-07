@@ -15,6 +15,7 @@ import {FaMoon} from "react-icons/fa";
 import { IoSunnySharp } from "react-icons/io5";
 import useUser from "../lib/useUser";
 import {logOut} from "../api";
+import {useQueryClient} from "@tanstack/react-query";
 
 
 interface HeaderProps {
@@ -26,6 +27,7 @@ export default function Header( { onLoginOpen, onSignUpOpen } : HeaderProps ) {
 
     const {userLoading, user, isLoggedIn} = useUser();
     const toast = useToast();
+    const queryClient = useQueryClient();
 
     const { colorMode, toggleColorMode } = useColorMode()
     const logoColor = useColorModeValue("red.500", "red.200")
@@ -38,8 +40,11 @@ export default function Header( { onLoginOpen, onSignUpOpen } : HeaderProps ) {
             status: "loading",
             position: "bottom-right"
         })
-        //const data = await logOut();
+        const data = await logOut();
+        queryClient.refetchQueries({queryKey: ["me"]});
         toast.update(toastId, {
+            title: "Good bye",
+            description: "see you later",
             status: "success"
         })
     }
