@@ -14,7 +14,7 @@ export default function GithubConfirm() {
     }
 
     useEffect(() => {
-
+        confirmLogin();
     }, [])
 
     return (
