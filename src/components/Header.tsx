@@ -82,7 +82,7 @@ export default function Header( { onLoginOpen, onSignUpOpen } : HeaderProps ) {
                         :
                         <Menu>
                             <MenuButton>
-                                <Avatar name={user?.name} src={user?.avatar} size={"md"} />
+                                <Avatar name={user?.name} src={user?.profile_photo} size={"md"} />
                             </MenuButton>
                             <MenuList>
                                 <MenuItem onClick={onLogOut}>Log Out</MenuItem>

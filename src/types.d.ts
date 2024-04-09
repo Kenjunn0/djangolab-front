@@ -56,7 +56,7 @@ export interface IUser {
     username: string;
     email: string;
     date_joined: string;
-    avatar: string;
+    profile_photo: string;
     name: string;
     is_host: boolean;
     gender: string;
