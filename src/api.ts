@@ -35,3 +35,12 @@ export const logOut = async () => {
     }).
     then((response) => response.data)
 }
+
+export const githubLogin = async  (code: string) => {
+    instance.post(`users/github`, { code }, {
+        headers: {
+            "X-CSRFToken" : Cookie.get("csrftoken") || "",
+        },
+    }).
+    then((response) => response.status);
+}
