@@ -44,3 +44,12 @@ export const githubLogin = async  (code: string) => {
     }).
     then((response) => response.status);
 }
+
+export const kakaoLogin = async  (code: string) => {
+    return instance.post(`users/kakao`, { code }, {
+        headers: {
+            "X-CSRFToken" : Cookie.get("csrftoken") || "",
+        },
+    }).
+    then((response) => response.status);
+}
