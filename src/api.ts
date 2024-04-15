@@ -53,3 +53,17 @@ export const kakaoLogin = async  (code: string) => {
     }).
     then((response) => response.status);
 }
+
+export interface IUsernameLoginVariables {
+    username : string;
+    password : string;
+}
+
+export const usernameLogIn = async  ({username, password} : IUsernameLoginVariables) => {
+    return instance.post(`users/log-in`, { username, password }, {
+        headers: {
+            "X-CSRFToken" : Cookie.get("csrftoken") || "",
+        },
+    }).
+    then((response) => response.status);
+}
