@@ -29,13 +29,14 @@ export default function LoginModal({ isOpen, onClose } : LoginModalProps) {
 
     const queryClient = useQueryClient();
     const toast = useToast();
-    const { register, handleSubmit, formState : { errors } } = useForm<IForm>();
+    const { register, handleSubmit, formState : { errors }, reset } = useForm<IForm>();
     const mutation = useMutation({
         mutationFn: usernameLogIn,
         onSuccess: (data) => {
-            toast({title: "welcome back!", status: "success"})
+            toast({title: "welcome back!", status: "success"});
             onClose();
-            queryClient.refetchQueries({queryKey: ["me"]})
+            queryClient.refetchQueries({queryKey: ["me"]});
+            reset();
         },
         onError: (error) => console.log("mutation has an error"),
     })

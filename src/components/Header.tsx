@@ -85,6 +85,9 @@ export default function Header( { onLoginOpen, onSignUpOpen } : HeaderProps ) {
                                 <Avatar name={user?.name} src={user?.profile_photo} size={"md"} />
                             </MenuButton>
                             <MenuList>
+                                <Link to={"/rooms/upload"} >
+                                    {user?.is_host ? <MenuItem>Upload room</MenuItem> : null}
+                                </Link>
                                 <MenuItem onClick={onLogOut}>Log Out</MenuItem>
                             </MenuList>
                         </Menu>
