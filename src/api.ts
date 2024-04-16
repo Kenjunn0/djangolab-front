@@ -36,7 +36,7 @@ export const logOut = async () => {
     then((response) => response.data)
 }
 
-export const githubLogin = async  (code: string) => {
+export const githubLogin = async (code: string) => {
     return instance.post(`users/github`, { code }, {
         headers: {
             "X-CSRFToken" : Cookie.get("csrftoken") || "",
@@ -45,7 +45,7 @@ export const githubLogin = async  (code: string) => {
     then((response) => response.status);
 }
 
-export const kakaoLogin = async  (code: string) => {
+export const kakaoLogin = async (code: string) => {
     return instance.post(`users/kakao`, { code }, {
         headers: {
             "X-CSRFToken" : Cookie.get("csrftoken") || "",
@@ -66,4 +66,14 @@ export const usernameLogIn = async  ({username, password} : IUsernameLoginVariab
         },
     }).
     then((response) => response.status);
+}
+
+export const getAmenities = async () => {
+    return await instance.get(`rooms/amenities`).
+    then((response) => response.data);
+}
+
+export const getCategories = async () => {
+    return await instance.get(`categories/`).
+    then((response) => response.data);
 }
