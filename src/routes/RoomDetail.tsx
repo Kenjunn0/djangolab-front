@@ -43,20 +43,23 @@ export default function RoomDetail() {
             <Skeleton height={"40px"} width={"50%"} isLoaded={!isRoomLoading}>
                 <Heading>{roomData?.name}</Heading>
             </Skeleton>
-            <Grid templateColumns={"repeat(4, 1fr)"} templateRows={"1fr 1fr"} height={"60vh"} gap={3} mt={10} rounded={20} overflow={"hidden"}>
-                {[0, 1, 2, 3, 4].map((index) => (
-                    <GridItem
-                        colSpan={index === 0 ? 2 : 1}
-                        rowSpan={index === 0 ? 2 : 1}
-                        overflow={"hidden"}
-                        key={roomData?.photos[index].pk}
-                    >
-                    <Skeleton isLoaded={!isRoomLoading} h={"100%"} w={"100%"}>
-                        <Image objectFit={"cover"} w={"100%"} h={"100%"} src={roomData?.photos[index].file} />
-                    </Skeleton>
-                    </GridItem>
-                ))}
-            </Grid>
+            {roomData?.photos && roomData?.photos.length > 0 ? (
+                <Grid templateColumns={"repeat(4, 1fr)"} templateRows={"1fr 1fr"} height={"60vh"} gap={3} mt={10} rounded={20} overflow={"hidden"}>
+                    {[0, 1, 2, 3, 4].map((index) => (
+                        <GridItem
+                            colSpan={index === 0 ? 2 : 1}
+                            rowSpan={index === 0 ? 2 : 1}
+                            overflow={"hidden"}
+                            key={roomData?.photos[index].pk}
+                        >
+                            <Skeleton isLoaded={!isRoomLoading} h={"100%"} w={"100%"}>
+                                <Image objectFit={"cover"} w={"100%"} h={"100%"} src={roomData?.photos[index].file} />
+                            </Skeleton>
+                        </GridItem>
+                    ))}
+                </Grid>
+            ) : null
+            }
             <HStack w={"40%"} mt={10} justifyContent={"space-between"}>
                 <VStack alignItems={"flex-start"}>
                     <Skeleton isLoaded={!isRoomLoading} height={"30px"}>

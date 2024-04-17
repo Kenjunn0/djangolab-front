@@ -5,7 +5,7 @@ export interface IRoomPhotoPhoto {
 }
 
 export interface IRoomList {
-    pk: number;
+    id: number;
     name: string;
     country: string;
     city: string;
@@ -22,7 +22,7 @@ export interface IRoomOwner {
 }
 
 export interface IAmenity {
-    pk : number;
+    id : number;
     name: string;
     description: string;
 }
