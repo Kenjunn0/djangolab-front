@@ -50,10 +50,10 @@ export default function RoomDetail() {
                             colSpan={index === 0 ? 2 : 1}
                             rowSpan={index === 0 ? 2 : 1}
                             overflow={"hidden"}
-                            key={roomData?.photos[index].pk}
+                            key={roomData?.photos[index]?.pk}
                         >
                             <Skeleton isLoaded={!isRoomLoading} h={"100%"} w={"100%"}>
-                                <Image objectFit={"cover"} w={"100%"} h={"100%"} src={roomData?.photos[index].file} />
+                                <Image objectFit={"cover"} w={"100%"} h={"100%"} src={roomData?.photos[index]?.file} />
                             </Skeleton>
                         </GridItem>
                     ))}

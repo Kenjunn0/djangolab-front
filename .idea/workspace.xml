@@ -7,6 +7,7 @@
     <list default="true" id="fcbdd10b-4383-4838-8fb0-9ece9025f228" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/RoomDetail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/RoomDetail.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/UploadPhotos.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/UploadPhotos.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,7 +78,7 @@
       <workItem from="1712733026889" duration="8189000" />
       <workItem from="1713177379223" duration="15106000" />
       <workItem from="1713331286690" duration="7574000" />
-      <workItem from="1713412243517" duration="3594000" />
+      <workItem from="1713412243517" duration="5824000" />
     </task>
     <servers />
   </component>
