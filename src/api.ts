@@ -1,7 +1,7 @@
 import Cookie from "js-cookie";
 import axios from "axios"
 import {QueryFunctionContext} from "@tanstack/react-query";
-import {IRoomDetail} from "./types";
+import {formatDate} from "./lib/utils";
 
 const instance = axios.create({
     baseURL: "http://127.0.0.1:8000/api/v1/",
@@ -148,8 +148,8 @@ export const checkBooking = ({ queryKey } : QueryFunctionContext<CheckBookingQue
     const [ _, roomPk, dates ] = queryKey;
     if(dates){
         const [first , second] = dates;
-        const [ checkIn ] = first.toJSON().split("T");
-        const [ chechOut ] = second.toJSON().split("T");
+        const checkIn = formatDate(first)
+        const chechOut = formatDate(second)
 
         return instance.get(`rooms/${roomPk}/bookings/check?check_in=${checkIn}&check_out=${chechOut}`).
         then((response) => response.data);

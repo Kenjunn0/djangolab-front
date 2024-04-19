@@ -19,7 +19,9 @@ import {
 import {FaStar} from "react-icons/fa";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
-import {useEffect, useState} from "react";
+import {useState} from "react";
+import {Helmet} from "react-helmet";
+
 
 
 export default function RoomDetail() {
@@ -54,6 +56,9 @@ export default function RoomDetail() {
                 lg: 30
             }}
         >
+            <Helmet>
+                <title>{roomData ? roomData?.name : "Loading..."}</title>
+            </Helmet>
             <Skeleton height={"40px"} width={"50%"} isLoaded={!isRoomLoading}>
                 <Heading>{roomData?.name}</Heading>
             </Skeleton>
