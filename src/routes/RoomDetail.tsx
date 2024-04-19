@@ -1,10 +1,10 @@
 import {useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
-import {getRoom, getRoomReviews} from "../api";
+import {checkBooking, getRoom, getRoomReviews} from "../api";
 import {IReviews, IRoomDetail} from "../types";
 import {
     Avatar,
-    Box,
+    Box, Button,
     Container,
     Divider,
     Grid,
@@ -24,6 +24,9 @@ import {useEffect, useState} from "react";
 
 export default function RoomDetail() {
     const {roomPk} = useParams();
+    const [dates, setDates] = useState<Date[]>();
+
+
     const {isLoading : isRoomLoading, data : roomData} = useQuery<IRoomDetail>({
         queryKey: [`rooms`, roomPk],
         queryFn: getRoom
@@ -32,17 +35,15 @@ export default function RoomDetail() {
         queryKey: [`room`, roomPk, `reviews`],
         queryFn: getRoomReviews
     })
+    const {isLoading : isCheckingBooking, data : checkBookData } = useQuery({
+        queryKey: ["check", roomPk , dates],
+        queryFn: checkBooking,
+        enabled: dates !== undefined,
+        gcTime: 0, //cacheTime
+    });
 
-    const [dates, setDates] = useState<Date[]>();
-    useEffect(() => {
-        if(dates){
-            const [first , second] = dates;
-            const [ checkIn ] = first.toJSON().split("T");
-            const [ chechOut ] = second.toJSON().split("T");
-            console.log(checkIn, chechOut)
-        }
-    }, [dates])
-
+    console.log(dates)
+    console.log(checkBookData)
 
     return(
         <Box
@@ -129,6 +130,12 @@ export default function RoomDetail() {
                         maxDate={new Date(Date.now() + 60 * 60 * 24 * 7 * 4 * 6 * 1000)}
                         selectRange
                     />
+                        <Button disabled={!checkBookData?.ok} isLoading={isCheckingBooking} mt={5} w={"100%"} colorScheme={checkBookData?.ok ? "red" : "gray"}>
+                            Make Booking
+                        </Button>
+                    {!isCheckingBooking && !checkBookData?.ok && dates ?
+                        <Text color={"red.500"}>Can't book on those dates</Text> : null
+                    }
                 </Box>
             </Grid>
         </Box>
